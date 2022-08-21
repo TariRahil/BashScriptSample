@@ -1,0 +1,19 @@
+#!/bin/bash
+if [[ "$#" -ne 2 ]]; then
+	echo "Usage: $0 <source> <backupName>"
+	exit 1
+fi
+if [[ ! -d "$1" ]]; then
+	echo "Error: <source> should be a directory"
+	exit 1
+fi
+if [[ "$2" != *.tar.gz ]]; then 
+	echo "Error: backup name should be something with .tar.gz"
+	exit 1
+fi
+tar -zcf $2 $1 &>/dev/null
+if [[ ! -f "$2" ]]; then
+	echo "Erroe: could not create the backup."
+	exit 1
+fi
+echo "Info: backup is created succesfully."
